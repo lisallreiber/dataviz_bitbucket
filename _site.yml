@@ -1,0 +1,26 @@
+name: "Data Visualization"
+output_dir: "docs"
+navbar:
+  title: "Data Visualization"
+  left:
+    - text: "Overview"
+      href: index.html
+    - text: "Getting Data"
+      href: 0_create.nb.html
+    - text: "Data Wrangling"
+      href: 1_wrangle.nb.html
+    - text: "Plotting Data"
+      href: 2_plot.nb.html
+  right:
+    - text: ""
+      icon: fa-github
+      href: https://github.com/TripLLL
+output:
+  html_document:
+    self_contained: false
+    theme: paper
+    code_folding: "hide"
+    df_print: "tibble"
+    highlight: "zenburn"
+    css: styles.css
+exclude: ["*.rda", "*.pdf", "*.dta", "*.csv", "geo", "item_tables", "*.csl", "*.bibtex", "*.docx"]

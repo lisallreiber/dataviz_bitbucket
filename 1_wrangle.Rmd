@@ -1,6 +1,12 @@
 ---
-title: "R Notebook"
-output: html_notebook
+output:
+  html_notebook:
+    code_folding: show
+    toc: yes
+    toc_float: yes
+  html_document:
+    df_print: paged
+    toc: yes
 ---
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 

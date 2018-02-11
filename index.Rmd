@@ -1,0 +1,38 @@
+---
+pagetitle: Data Visualization
+---
+
+# Headline {.tabset .tabset-sticky}
+
+Here comes the description of our project
+
+We used these [helper functions](0_helpers.html) and 
+this [knitr component](_regression_summary.html). 
+These are the [.Rprofile settings](.Rprofile.html)
+
+1. First we [created the data](0_create.nb.html).
+2. Then we [wrangled the data ](1_wrangle.nb.html).
+3. Then we [plotted](2_plot.nb.html) it.
+
+## Authors & Acknowledgements {.tabset .tabset-sticky}
+comes here
+
+### Authors
+Write Authors
+
+### Acknowledgements {.active}
+Write Acknowledgement
+
+#### Package bibliography {.tabset .tabset-sticky}
+
+
+##### Session info
+```{r}
+# Make packrat bibliography
+# packrat_bibliography(overwrite_bib = TRUE, silent = TRUE)
+# Turn the .R files into .Rmd files, turn those into .html, remove the .Rmd files
+# spin_R_files_to_site_html()
+sessionInfo()
+```
+
+##### References {.active}
