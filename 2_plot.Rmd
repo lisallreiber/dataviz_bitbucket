@@ -7,19 +7,34 @@ output:
   html_document:
     df_print: paged
     toc: yes
+editor_options: 
+  chunk_output_type: inline
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
+# Index Plot
 ```{r}
-plot(cars)
+ggplot(long.index, aes(x = date, y = index, color = variable)) +
+  geom_line() + 
+  geom_point() + 
+  theme_tufte() +
+  ylab("Index") 
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+# Sparklines
+```{r}
+ggplot(long, aes(x = date, y = measurement)) + 
+  facet_grid(variable ~ ., scales = "free_y") + 
+  geom_ribbon(data = quarts, aes(ymin = quart1, max = quart2), fill = 'grey90') + # grey bar
+  geom_line(size=0.3) +
+  geom_point(data = mins, col = 'blue') + # min value in blue
+  geom_point(data = maxs, col = 'red') + # max  value in red
+  geom_text(data = mins, aes(label = measurement), vjust = -1) + 
+  geom_text(data = maxs, aes(label = measurement), vjust = 2.5) +
+  geom_text(data = ends, aes(label = measurement), hjust = 0, nudge_x = 1) +
+  geom_text(data = ends, aes(label = variable), hjust = 0, nudge_x = 12, size = 7) +
+  expand_limits(x = max(long$date) + (0.25 * (max(long$date) - min(long$date)))) +
+  theme_tufte(base_size = 15, base_family = "sans") +
+  theme(axis.title=element_blank(), axis.text.y = element_blank(), 
+        axis.ticks = element_blank(), strip.text = element_blank())
+```
 

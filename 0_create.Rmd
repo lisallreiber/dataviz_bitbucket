@@ -7,19 +7,55 @@ output:
   html_document:
     df_print: paged
     toc: yes
+editor_options: 
+  chunk_output_type: inline
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
+# Prepare R
 ```{r}
-plot(cars)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  haven,
+  tidyverse,
+  lme4,
+  sjPlot,
+  sjmisc,
+  sjlabelled,
+  ggthemes,
+  reshape
+)
+
+wd <- "D:/Dropbox/DataVisualization" # Flo
+# wd <- "/Users/LR/Dropbox/DataVisualization/" # Lisa
+setwd(wd)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+# Load data
+```{r}
+price  <- read_csv("crypto-markets.csv")
+google <- read_csv("Bitcoin_google_1_10_2017.csv")
+news   <- read_csv("Bitcoin_news_1_10_2017.csv")
+```
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+```{r}
+price %>%
+  filter(symbol == "BTC") %>%
+  select(date, open, spread, market) ->
+price
+```
 
+
+# Merge 3 datasets
+```{r}
+price %>%
+  right_join( google, by = "date") %>% 
+  right_join(news, by = "date") ->
+merge
+```
+
+# Rename variables
+```{r}
+names(merge)[2:ncol(merge)] <- c("Preis", "Spread", "Gesamtwert", 
+                                 "Google-Suchen", "Nachrichtenartikel")
+```

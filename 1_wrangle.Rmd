@@ -7,19 +7,42 @@ output:
   html_document:
     df_print: paged
     toc: yes
+editor_options: 
+  chunk_output_type: inline
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
-
+# Wide to long
 ```{r}
-plot(cars)
+long  <-  gather(merge, variable, measurement, 
+                 Preis:Nachrichtenartikel, factor_key=TRUE)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+# Drop one day only contained in google data
+```{r}
+long %>% 
+  filter(date != "2018-02-06") ->
+long
+```
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+# Prepare special variable values (min, max, end, quartiles)
+```{r}
+mins <- group_by(long, variable) %>% slice(which.min(measurement)) # max value ts
+maxs <- group_by(long, variable) %>% slice(which.max(measurement)) # min value ts
+ends <- group_by(long, variable) %>% filter(date == max(date))  # last value of ts
+quarts <- long %>% group_by(variable) %>% # quartiles for grey bar
+  summarize(quart1 = quantile(measurement, 0.25, na.rm = TRUE),
+            quart2 = quantile(measurement, 0.75, na.rm = TRUE)) %>%
+  right_join(long)
+```
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+# Create index values
+```{r}
+long %>% 
+  filter(complete.cases(.), variable != "close_ratio") %>% 
+  group_by(variable) %>% 
+  mutate(max = max(measurement), index = measurement/max) %>% 
+  filter(variable == "Preis" | variable == "Google-Suchen") ->
+long.index
+
+```
 
