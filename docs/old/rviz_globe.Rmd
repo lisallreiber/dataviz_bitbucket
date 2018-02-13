@@ -27,6 +27,8 @@ colnames(gg_0418_world)[2] <- "Bitcoin_0418"
 gg_0418_world2 <- read_csv("bitcoin_ggtrend_0418_world2.csv", skip = 2)
 colnames(gg_0418_world2)[2] <- "Bitcoin_0418"
 
+gg_oct17_world <- read_csv("./data/bitcoin_gg_region_011017.csv", skip = 3,
+                           col_names = c("Country", "Bitcoin"))
 
 ```
 
@@ -69,7 +71,13 @@ map_draw <- left_join(map_draw, data, by = c('id'='id_name')) %>%
       mutate(bitcoin = ifelse(is.na(Bitcoin_0418), 0, Bitcoin_0418))
 
 # Just the map
-ggmap +
+ggmap <- map_data(World)
+worldmap <- ggplot(world, aes(x = long, y = lat, group = group)) +
+  geom_path() +
+  scale_y_continuous(breaks = (-2:2) * 30) +
+  scale_x_continuous(breaks = (-4:4) * 45)
+
+worldmap +
   geom_polygon(data = map_draw,
                aes(long, lat, group = group), color = 'white',
                fill = 'grey') 
@@ -83,9 +91,9 @@ ditch_the_axes <- theme(
   axis.title = element_blank()
 )
 
-ggmap +
+worldmap +
      geom_polygon(data = map_draw,
-                 mapping = aes(fill = bitcoin)) +
+                 mapping = aes(fill = -bitcoin)) +
       #Add the scale of colour you want
      scale_fill_gradient()+
       ditch_the_axes+

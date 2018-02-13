@@ -10,21 +10,25 @@ output:
 editor_options: 
   chunk_output_type: inline
 ---
+# Wrangle Data {.tabset}
+***
 
-# Wide to long
+## Bitcoin Price Data
+### Wide to long
 ```{r}
+merge <- readRDS("data/bitcoin_raw.rds")
 long  <-  gather(merge, variable, measurement, 
                  Preis:Nachrichtenartikel, factor_key=TRUE)
 ```
 
-# Drop one day only contained in google data
+### Drop one day only contained in google data
 ```{r}
 long %>% 
   filter(date != "2018-02-06") ->
 long
 ```
 
-# Prepare special variable values (min, max, end, quartiles)
+### Prepare special variable values (min, max, end, quartiles)
 ```{r}
 mins <- group_by(long, variable) %>% slice(which.min(measurement)) # max value ts
 maxs <- group_by(long, variable) %>% slice(which.max(measurement)) # min value ts
@@ -32,10 +36,10 @@ ends <- group_by(long, variable) %>% filter(date == max(date))  # last value of 
 quarts <- long %>% group_by(variable) %>% # quartiles for grey bar
   summarize(quart1 = quantile(measurement, 0.25, na.rm = TRUE),
             quart2 = quantile(measurement, 0.75, na.rm = TRUE)) %>%
-  right_join(long)
+  right_join(long, by = "variable")
 ```
 
-# Create index values
+### Create index values
 ```{r}
 long %>% 
   filter(complete.cases(.), variable != "close_ratio") %>% 
@@ -43,6 +47,28 @@ long %>%
   mutate(max = max(measurement), index = measurement/max) %>% 
   filter(variable == "Preis" | variable == "Google-Suchen") ->
 long.index
+
+```
+
+## Bitcoin Region
+### Prepare for ggplot Map
+```{r}
+#generate id
+World@data$id_name <- seq(1,length(World@data$name)) 
+# change spacial data frame to data frame
+map_draw <- fortify(World, region = "id_name")
+```
+
+### Add World@data 
+Through the fortify command, some information from the dataset of the spacial data frame ist lost. In this step the World@data part gets merged to the map_draw dataframe by hand. 
+```{r message=FALSE, warning=FALSE}
+map_draw$id <- as.numeric(map_draw$id)
+data <- map@data
+ 
+#Add the stats to the map data
+map_draw <- left_join(map_draw, World@data, by = c('id'='id_name')) %>% 
+      left_join(gg_oct17_world, by = c("name" = "Country")) %>% 
+      mutate(bitcoin = ifelse(is.na(Bitcoin), 0, Bitcoin))
 
 ```
 

@@ -361,21 +361,148 @@ div.tocify {
 
 
 <!-- rnb-text-begin -->
-<p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a> Notebook. When you execute code within the notebook, the results appear beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Cmd+Shift+Enter</em>.</p>
+<div id="getting-data" class="section level1">
+<h1>Getting Data</h1>
+<hr />
+<div id="load" class="section level2 tabset">
+<h2>1. Load…</h2>
+<div id="packages" class="section level3">
+<h3>…Packages</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChjYXJzKVxuYGBgIn0= -->
-<pre class="r"><code>plot(cars)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjpbImlmICghcmVxdWlyZShcInBhY21hblwiKSkgaW5zdGFsbC5wYWNrYWdlcyhcInBhY21hblwiKSIsInBhY21hbjo6cF9sb2FkKFxuICBoYXZlbixcbiAgbG1lNCwgXG4gIHNqUGxvdCxcbiAgc2ptaXNjLFxuICBzamxhYmVsbGVkLFxuICBnZ3RoZW1lcywgXG4gIHJlc2hhcGUsICMgcmVzaGFwZSBkYXRhZnJhbWVzXG4gIHRtYXAsICMgdG8gbWFwIHNwYWNpYWwgZGF0YSwgZ2V0IHNoYXBlZmlsZXNcbiAgdG1hcHRvb2xzLCAjIHRvIG1hcCBzcGFjaWFsIGRhdGFcbiAgZ2dtYXAsICMgdG8gbWFwIHNwYWNpYWwgZGF0YVxuICBzcCwgIyB0byBoYW5kbGUgc3BhY2lhbCBkYXRhXG4gIGJyb29tLCAjIHRvIGNsZWFuIHVwIGFsbCBraW5kcyBvZiBkYXRhc2V0c1xuICBnZ3Bsb3QyLCAjIHRvIHBsb3QgXG4gIGdyaWRFeHRyYSwgIyB0byBhcnJhbmdlIG11bHRpcGxlIHBsb3RzXG4gIHRpZHl2ZXJzZSkgIyBkYXRhIHdyYW5nbGluZyIsIiIsIiMgd2QgPC0gXCJEOi9Ecm9wYm94L0RhdGFWaXN1YWxpemF0aW9uXCIgIyBGbG8iLCIjIHNldHdkKHdkKSJdfQ== -->
+<pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
+pacman::p_load(
+  haven,
+  lme4, 
+  sjPlot,
+  sjmisc,
+  sjlabelled,
+  ggthemes, 
+  reshape, # reshape dataframes
+  tmap, # to map spacial data, get shapefiles
+  tmaptools, # to map spacial data
+  ggmap, # to map spacial data
+  sp, # to handle spacial data
+  broom, # to clean up all kinds of datasets
+  ggplot2, # to plot 
+  gridExtra, # to arrange multiple plots
+  tidyverse) # data wrangling
+
+# wd &lt;- &quot;D:/Dropbox/DataVisualization&quot; # Flo
+# setwd(wd)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Add a new chunk by clicking the <em>Insert Chunk</em> button on the toolbar or by pressing <em>Cmd+Option+I</em>.</p>
-<p>When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the <em>Preview</em> button or press <em>Cmd+Shift+K</em> to preview the HTML file).</p>
-<p>The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.</p>
+</div>
+<div id="bitcoin-prices" class="section level3">
+<h3>…Bitcoin Prices</h3>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjpbIiMgUHJpY2Ugb2YgQml0Y29pbnMiLCJwcmljZSAgPC0gcmVhZF9jc3YoXCJkYXRhL2NyeXB0by1tYXJrZXRzLmNzdlwiKSIsIiMgUmVsYXRpdmUgQW1vdW50IG9mIEdvb2dsZSBXZWIgU2VhcmNoZXMiLCJnb29nbGUgPC0gcmVhZF9jc3YoXCJkYXRhL0JpdGNvaW5fZ29vZ2xlXzFfMTBfMjAxNy5jc3ZcIikiLCIjIFJlbGF0aXZlIEFtb3VudCBvZiBOZXdzIiwibmV3cyAgIDwtIHJlYWRfY3N2KFwiZGF0YS9CaXRjb2luX25ld3NfMV8xMF8yMDE3LmNzdlwiKSJdfQ== -->
+<pre class="r"><code># Price of Bitcoins
+price  &lt;- read_csv(&quot;data/crypto-markets.csv&quot;)
+# Relative Amount of Google Web Searches
+google &lt;- read_csv(&quot;data/Bitcoin_google_1_10_2017.csv&quot;)
+# Relative Amount of News
+news   &lt;- read_csv(&quot;data/Bitcoin_news_1_10_2017.csv&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="bitcoin-region" class="section level3">
+<h3>…Bitcoin Region</h3>
+<p><a href="https://support.google.com/trends/answer/4355212">Info on Source of Data</a></p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjpbIiMgUmVsYXRpdmUgQW1vdW50IG9mIEdvb2dsZSBXZWIgU2VhcmNoZXMgYnkgUmVnaW9uIiwiIyMgZXhjbHVkZXMgbG93IHZvbHVtZSBjb3VudHJpZXMiLCJnZ19vY3QxN193b3JsZCA8LSByZWFkX2NzdihcImRhdGEvYml0Y29pbl9nZ19yZWdpb25fMDExMDE3LmNzdlwiLCBza2lwID0gMyxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbF9uYW1lcyA9IGMoXCJDb3VudHJ5XCIsIFwiQml0Y29pblwiKSkiLCIiLCIjIyBpbmNsdWRlcyBsb3cgdm9sdW1lIGNvdW50cmllcyIsImdnX29jdDE3X3dvcmxkMiA8LSByZWFkX2NzdihcImRhdGEvYml0Y29pbl9nZ19yZWdpb25fYWxsXzAxMTAxNy5jc3ZcIiwgc2tpcCA9IDMsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xfbmFtZXMgPSBjKFwiQ291bnRyeVwiLCBcIkJpdGNvaW5cIikpIiwiIiwiIyMgc2hhcGVmaWxlIG9mIHdvcmxkIiwiZGF0YShXb3JsZCkiXX0= -->
+<pre class="r"><code># Relative Amount of Google Web Searches by Region
+## excludes low volume countries
+gg_oct17_world &lt;- read_csv(&quot;data/bitcoin_gg_region_011017.csv&quot;, skip = 3,
+                           col_names = c(&quot;Country&quot;, &quot;Bitcoin&quot;))
 
-<div id="rmd-source-code">LS0tCm91dHB1dDoKICBodG1sX25vdGVib29rOgogICAgY29kZV9mb2xkaW5nOiBzaG93CiAgICB0b2M6IHllcwogICAgdG9jX2Zsb2F0OiB5ZXMKICBodG1sX2RvY3VtZW50OgogICAgZGZfcHJpbnQ6IHBhZ2VkCiAgICB0b2M6IHllcwotLS0KClRoaXMgaXMgYW4gW1IgTWFya2Rvd25dKGh0dHA6Ly9ybWFya2Rvd24ucnN0dWRpby5jb20pIE5vdGVib29rLiBXaGVuIHlvdSBleGVjdXRlIGNvZGUgd2l0aGluIHRoZSBub3RlYm9vaywgdGhlIHJlc3VsdHMgYXBwZWFyIGJlbmVhdGggdGhlIGNvZGUuIAoKVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkNtZCtTaGlmdCtFbnRlciouIAoKYGBge3J9CnBsb3QoY2FycykKYGBgCgpBZGQgYSBuZXcgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpJbnNlcnQgQ2h1bmsqIGJ1dHRvbiBvbiB0aGUgdG9vbGJhciBvciBieSBwcmVzc2luZyAqQ21kK09wdGlvbitJKi4KCldoZW4geW91IHNhdmUgdGhlIG5vdGVib29rLCBhbiBIVE1MIGZpbGUgY29udGFpbmluZyB0aGUgY29kZSBhbmQgb3V0cHV0IHdpbGwgYmUgc2F2ZWQgYWxvbmdzaWRlIGl0IChjbGljayB0aGUgKlByZXZpZXcqIGJ1dHRvbiBvciBwcmVzcyAqQ21kK1NoaWZ0K0sqIHRvIHByZXZpZXcgdGhlIEhUTUwgZmlsZSkuIAoKVGhlIHByZXZpZXcgc2hvd3MgeW91IGEgcmVuZGVyZWQgSFRNTCBjb3B5IG9mIHRoZSBjb250ZW50cyBvZiB0aGUgZWRpdG9yLiBDb25zZXF1ZW50bHksIHVubGlrZSAqS25pdCosICpQcmV2aWV3KiBkb2VzIG5vdCBydW4gYW55IFIgY29kZSBjaHVua3MuIEluc3RlYWQsIHRoZSBvdXRwdXQgb2YgdGhlIGNodW5rIHdoZW4gaXQgd2FzIGxhc3QgcnVuIGluIHRoZSBlZGl0b3IgaXMgZGlzcGxheWVkLgoK</div>
+## includes low volume countries
+gg_oct17_world2 &lt;- read_csv(&quot;data/bitcoin_gg_region_all_011017.csv&quot;, skip = 3,
+                           col_names = c(&quot;Country&quot;, &quot;Bitcoin&quot;))
+
+## shapefile of world
+data(World)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="prepare-data" class="section level2 tabset">
+<h2>2. Prepare Data</h2>
+<div id="bitcoin-prices-1" class="section level3">
+<h3>Bitcoin Prices</h3>
+<div id="prepare-price-data" class="section level4">
+<h4>Prepare Price Data</h4>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoicHJpY2UgJT4lXG4gIGZpbHRlcihzeW1ib2wgPT0gXCJCVENcIikgJT4lXG4gIHNlbGVjdChkYXRlLCBvcGVuLCBzcHJlYWQsIG1hcmtldCkgLT5cbnByaWNlIn0= -->
+<pre class="r"><code>price %&gt;%
+  filter(symbol == &quot;BTC&quot;) %&gt;%
+  select(date, open, spread, market) -&gt;
+price</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="merge-3-datasets" class="section level4">
+<h4>Merge 3 datasets</h4>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoicHJpY2UgJT4lXG4gIHJpZ2h0X2pvaW4oZ29vZ2xlLCBieSA9IFwiZGF0ZVwiKSAlPiUgXG4gIHJpZ2h0X2pvaW4obmV3cywgYnkgPSBcImRhdGVcIikgLT5cbm1lcmdlIn0= -->
+<pre class="r"><code>price %&gt;%
+  right_join(google, by = &quot;date&quot;) %&gt;% 
+  right_join(news, by = &quot;date&quot;) -&gt;
+merge</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="rename-variables" class="section level4">
+<h4>Rename variables</h4>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoibmFtZXMobWVyZ2UpWzI6bmNvbChtZXJnZSldIDwtIGMoXCJQcmVpc1wiLCBcIlNwcmVhZFwiLCBcIkdlc2FtdHdlcnRcIiwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIkdvb2dsZS1TdWNoZW5cIiwgXCJOYWNocmljaHRlbmFydGlrZWxcIikifQ== -->
+<pre class="r"><code>names(merge)[2:ncol(merge)] &lt;- c(&quot;Preis&quot;, &quot;Spread&quot;, &quot;Gesamtwert&quot;, 
+                                 &quot;Google-Suchen&quot;, &quot;Nachrichtenartikel&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="save-dataset" class="section level4">
+<h4>Save Dataset</h4>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoic2F2ZVJEUyhtZXJnZSwgXCJkYXRhL2JpdGNvaW5fcmF3LnJkc1wiKSJ9 -->
+<pre class="r"><code>saveRDS(merge, &quot;data/bitcoin_raw.rds&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="bitcoin-region-1" class="section level3">
+<h3>Bitcoin Region</h3>
+<div id="merge-shapefile-with-gogle-trends-regional-data" class="section level4">
+<h4>Merge Shapefile with Gogle Trends Regional Data</h4>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoid29ybGQuc2hwIDwtIHNwOjptZXJnZShXb3JsZCwgZ2dfb2N0MTdfd29ybGQsIFxuICAgICAgICAgICAgICAgICAgICAgICBieS54ID0gXCJuYW1lXCIsIGJ5LnkgPSBcIkNvdW50cnlcIiwgYWxsLnggPSBUKSJ9 -->
+<pre class="r"><code>world.shp &lt;- sp::merge(World, gg_oct17_world, 
+                       by.x = &quot;name&quot;, by.y = &quot;Country&quot;, all.x = T)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
+</div>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCm91dHB1dDoKICBodG1sX25vdGVib29rOgogICAgY29kZV9mb2xkaW5nOiBzaG93CiAgICB0b2M6IHllcwogICAgdG9jX2Zsb2F0OiB5ZXMKICBodG1sX2RvY3VtZW50OgogICAgZGZfcHJpbnQ6IHBhZ2VkCiAgICB0b2M6IHllcwplZGl0b3Jfb3B0aW9uczogCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGlubGluZQotLS0KCiMgR2V0dGluZyBEYXRhCgoKKioqCgojIyAxLiBMb2FkLi4uIHsudGFic2V0fQojIyMgLi4uUGFja2FnZXMKYGBge3J9CmlmICghcmVxdWlyZSgicGFjbWFuIikpIGluc3RhbGwucGFja2FnZXMoInBhY21hbiIpCnBhY21hbjo6cF9sb2FkKAogIGhhdmVuLAogIGxtZTQsIAogIHNqUGxvdCwKICBzam1pc2MsCiAgc2psYWJlbGxlZCwKICBnZ3RoZW1lcywgCiAgcmVzaGFwZSwgIyByZXNoYXBlIGRhdGFmcmFtZXMKICB0bWFwLCAjIHRvIG1hcCBzcGFjaWFsIGRhdGEsIGdldCBzaGFwZWZpbGVzCiAgdG1hcHRvb2xzLCAjIHRvIG1hcCBzcGFjaWFsIGRhdGEKICBnZ21hcCwgIyB0byBtYXAgc3BhY2lhbCBkYXRhCiAgc3AsICMgdG8gaGFuZGxlIHNwYWNpYWwgZGF0YQogIGJyb29tLCAjIHRvIGNsZWFuIHVwIGFsbCBraW5kcyBvZiBkYXRhc2V0cwogIGdncGxvdDIsICMgdG8gcGxvdCAKICBncmlkRXh0cmEsICMgdG8gYXJyYW5nZSBtdWx0aXBsZSBwbG90cwogIHRpZHl2ZXJzZSkgIyBkYXRhIHdyYW5nbGluZwoKIyB3ZCA8LSAiRDovRHJvcGJveC9EYXRhVmlzdWFsaXphdGlvbiIgIyBGbG8KIyBzZXR3ZCh3ZCkKYGBgCgojIyMgLi4uQml0Y29pbiBQcmljZXMKYGBge3IgYml0Y29pbiBwcmljZXMsIGVjaG89VCwgbWVzc2FnZT1GLCB3YXJuaW5nPUZBTFNFfQojIFByaWNlIG9mIEJpdGNvaW5zCnByaWNlICA8LSByZWFkX2NzdigiZGF0YS9jcnlwdG8tbWFya2V0cy5jc3YiKQojIFJlbGF0aXZlIEFtb3VudCBvZiBHb29nbGUgV2ViIFNlYXJjaGVzCmdvb2dsZSA8LSByZWFkX2NzdigiZGF0YS9CaXRjb2luX2dvb2dsZV8xXzEwXzIwMTcuY3N2IikKIyBSZWxhdGl2ZSBBbW91bnQgb2YgTmV3cwpuZXdzICAgPC0gcmVhZF9jc3YoImRhdGEvQml0Y29pbl9uZXdzXzFfMTBfMjAxNy5jc3YiKQpgYGAKCiMjIyAuLi5CaXRjb2luIFJlZ2lvbgpbSW5mbyBvbiBTb3VyY2Ugb2YgRGF0YV0oaHR0cHM6Ly9zdXBwb3J0Lmdvb2dsZS5jb20vdHJlbmRzL2Fuc3dlci80MzU1MjEyKQpgYGB7ciBiaXRjb2luIHJlZ2lvbiwgZWNobz1ULCBtZXNzYWdlPUYsIHdhcm5pbmc9RkFMU0V9CiMgUmVsYXRpdmUgQW1vdW50IG9mIEdvb2dsZSBXZWIgU2VhcmNoZXMgYnkgUmVnaW9uCiMjIGV4Y2x1ZGVzIGxvdyB2b2x1bWUgY291bnRyaWVzCmdnX29jdDE3X3dvcmxkIDwtIHJlYWRfY3N2KCJkYXRhL2JpdGNvaW5fZ2dfcmVnaW9uXzAxMTAxNy5jc3YiLCBza2lwID0gMywKICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sX25hbWVzID0gYygiQ291bnRyeSIsICJCaXRjb2luIikpCgojIyBpbmNsdWRlcyBsb3cgdm9sdW1lIGNvdW50cmllcwpnZ19vY3QxN193b3JsZDIgPC0gcmVhZF9jc3YoImRhdGEvYml0Y29pbl9nZ19yZWdpb25fYWxsXzAxMTAxNy5jc3YiLCBza2lwID0gMywKICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sX25hbWVzID0gYygiQ291bnRyeSIsICJCaXRjb2luIikpCgojIyBzaGFwZWZpbGUgb2Ygd29ybGQKZGF0YShXb3JsZCkKYGBgCgojIyAyLiBQcmVwYXJlIERhdGEgey50YWJzZXR9CiMjIyBCaXRjb2luIFByaWNlcwojIyMjIFByZXBhcmUgUHJpY2UgRGF0YQpgYGB7cn0KcHJpY2UgJT4lCiAgZmlsdGVyKHN5bWJvbCA9PSAiQlRDIikgJT4lCiAgc2VsZWN0KGRhdGUsIG9wZW4sIHNwcmVhZCwgbWFya2V0KSAtPgpwcmljZQpgYGAKCiMjIyMgTWVyZ2UgMyBkYXRhc2V0cwpgYGB7cn0KcHJpY2UgJT4lCiAgcmlnaHRfam9pbihnb29nbGUsIGJ5ID0gImRhdGUiKSAlPiUgCiAgcmlnaHRfam9pbihuZXdzLCBieSA9ICJkYXRlIikgLT4KbWVyZ2UKYGBgCgojIyMjIFJlbmFtZSB2YXJpYWJsZXMKYGBge3J9Cm5hbWVzKG1lcmdlKVsyOm5jb2wobWVyZ2UpXSA8LSBjKCJQcmVpcyIsICJTcHJlYWQiLCAiR2VzYW10d2VydCIsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiR29vZ2xlLVN1Y2hlbiIsICJOYWNocmljaHRlbmFydGlrZWwiKQpgYGAKCiMjIyMgU2F2ZSBEYXRhc2V0CmBgYHtyfQpzYXZlUkRTKG1lcmdlLCAiZGF0YS9iaXRjb2luX3Jhdy5yZHMiKQpgYGAKCgojIyMgQml0Y29pbiBSZWdpb24KCiMjIyMgTWVyZ2UgU2hhcGVmaWxlIHdpdGggR29nbGUgVHJlbmRzIFJlZ2lvbmFsIERhdGEKYGBge3J9CndvcmxkLnNocCA8LSBzcDo6bWVyZ2UoV29ybGQsIGdnX29jdDE3X3dvcmxkLCAKICAgICAgICAgICAgICAgICAgICAgICBieS54ID0gIm5hbWUiLCBieS55ID0gIkNvdW50cnkiLCBhbGwueCA9IFQpCmBgYAoK</div>
 
 
 </div>

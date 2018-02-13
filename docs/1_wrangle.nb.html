@@ -361,21 +361,104 @@ div.tocify {
 
 
 <!-- rnb-text-begin -->
-<p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a> Notebook. When you execute code within the notebook, the results appear beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Cmd+Shift+Enter</em>.</p>
+<div id="wrangle-data" class="section level1 tabset">
+<h1>Wrangle Data</h1>
+<hr />
+<div id="bitcoin-price-data" class="section level2">
+<h2>Bitcoin Price Data</h2>
+<div id="wide-to-long" class="section level3">
+<h3>Wide to long</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChjYXJzKVxuYGBgIn0= -->
-<pre class="r"><code>plot(cars)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVyZ2UgPC0gcmVhZFJEUyhcImRhdGEvYml0Y29pbl9yYXcucmRzXCIpXG5sb25nICA8LSAgZ2F0aGVyKG1lcmdlLCB2YXJpYWJsZSwgbWVhc3VyZW1lbnQsIFxuICAgICAgICAgICAgICAgICBQcmVpczpOYWNocmljaHRlbmFydGlrZWwsIGZhY3Rvcl9rZXk9VFJVRSlcbmBgYCJ9 -->
+<pre class="r"><code>merge &lt;- readRDS(&quot;data/bitcoin_raw.rds&quot;)
+long  &lt;-  gather(merge, variable, measurement, 
+                 Preis:Nachrichtenartikel, factor_key=TRUE)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Add a new chunk by clicking the <em>Insert Chunk</em> button on the toolbar or by pressing <em>Cmd+Option+I</em>.</p>
-<p>When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the <em>Preview</em> button or press <em>Cmd+Shift+K</em> to preview the HTML file).</p>
-<p>The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.</p>
+</div>
+<div id="drop-one-day-only-contained-in-google-data" class="section level3">
+<h3>Drop one day only contained in google data</h3>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubG9uZyAlPiUgXG4gIGZpbHRlcihkYXRlICE9IFwiMjAxOC0wMi0wNlwiKSAtPlxubG9uZ1xuYGBgIn0= -->
+<pre class="r"><code>long %&gt;% 
+  filter(date != &quot;2018-02-06&quot;) -&gt;
+long</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="prepare-special-variable-values-min-max-end-quartiles" class="section level3">
+<h3>Prepare special variable values (min, max, end, quartiles)</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWlucyA8LSBncm91cF9ieShsb25nLCB2YXJpYWJsZSkgJT4lIHNsaWNlKHdoaWNoLm1pbihtZWFzdXJlbWVudCkpICMgbWF4IHZhbHVlIHRzXG5tYXhzIDwtIGdyb3VwX2J5KGxvbmcsIHZhcmlhYmxlKSAlPiUgc2xpY2Uod2hpY2gubWF4KG1lYXN1cmVtZW50KSkgIyBtaW4gdmFsdWUgdHNcbmVuZHMgPC0gZ3JvdXBfYnkobG9uZywgdmFyaWFibGUpICU+JSBmaWx0ZXIoZGF0ZSA9PSBtYXgoZGF0ZSkpICAjIGxhc3QgdmFsdWUgb2YgdHNcbnF1YXJ0cyA8LSBsb25nICU+JSBncm91cF9ieSh2YXJpYWJsZSkgJT4lICMgcXVhcnRpbGVzIGZvciBncmV5IGJhclxuICBzdW1tYXJpemUocXVhcnQxID0gcXVhbnRpbGUobWVhc3VyZW1lbnQsIDAuMjUsIG5hLnJtID0gVFJVRSksXG4gICAgICAgICAgICBxdWFydDIgPSBxdWFudGlsZShtZWFzdXJlbWVudCwgMC43NSwgbmEucm0gPSBUUlVFKSkgJT4lXG4gIHJpZ2h0X2pvaW4obG9uZywgYnkgPSBcInZhcmlhYmxlXCIpXG5gYGAifQ== -->
+<pre class="r"><code>mins &lt;- group_by(long, variable) %&gt;% slice(which.min(measurement)) # max value ts
+maxs &lt;- group_by(long, variable) %&gt;% slice(which.max(measurement)) # min value ts
+ends &lt;- group_by(long, variable) %&gt;% filter(date == max(date))  # last value of ts
+quarts &lt;- long %&gt;% group_by(variable) %&gt;% # quartiles for grey bar
+  summarize(quart1 = quantile(measurement, 0.25, na.rm = TRUE),
+            quart2 = quantile(measurement, 0.75, na.rm = TRUE)) %&gt;%
+  right_join(long, by = &quot;variable&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="create-index-values" class="section level3">
+<h3>Create index values</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubG9uZyAlPiUgXG4gIGZpbHRlcihjb21wbGV0ZS5jYXNlcyguKSwgdmFyaWFibGUgIT0gXCJjbG9zZV9yYXRpb1wiKSAlPiUgXG4gIGdyb3VwX2J5KHZhcmlhYmxlKSAlPiUgXG4gIG11dGF0ZShtYXggPSBtYXgobWVhc3VyZW1lbnQpLCBpbmRleCA9IG1lYXN1cmVtZW50L21heCkgJT4lIFxuICBmaWx0ZXIodmFyaWFibGUgPT0gXCJQcmVpc1wiIHwgdmFyaWFibGUgPT0gXCJHb29nbGUtU3VjaGVuXCIpIC0+XG5sb25nLmluZGV4XG5gYGAifQ== -->
+<pre class="r"><code>long %&gt;% 
+  filter(complete.cases(.), variable != &quot;close_ratio&quot;) %&gt;% 
+  group_by(variable) %&gt;% 
+  mutate(max = max(measurement), index = measurement/max) %&gt;% 
+  filter(variable == &quot;Preis&quot; | variable == &quot;Google-Suchen&quot;) -&gt;
+long.index</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="bitcoin-region" class="section level2">
+<h2>Bitcoin Region</h2>
+<div id="prepare-for-ggplot-map" class="section level3">
+<h3>Prepare for ggplot Map</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2dlbmVyYXRlIGlkXG5Xb3JsZEBkYXRhJGlkX25hbWUgPC0gc2VxKDEsbGVuZ3RoKFdvcmxkQGRhdGEkbmFtZSkpIFxuIyBjaGFuZ2Ugc3BhY2lhbCBkYXRhIGZyYW1lIHRvIGRhdGEgZnJhbWVcbm1hcF9kcmF3IDwtIGZvcnRpZnkoV29ybGQsIHJlZ2lvbiA9IFwiaWRfbmFtZVwiKVxuYGBgIn0= -->
+<pre class="r"><code>#generate id
+World@data$id_name &lt;- seq(1,length(World@data$name)) 
+# change spacial data frame to data frame
+map_draw &lt;- fortify(World, region = &quot;id_name&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="add-worlddata" class="section level3">
+<h3>Add <a href="mailto:World@data">World@data</a></h3>
+<p>Through the fortify command, some information from the dataset of the spacial data frame ist lost. In this step the <a href="mailto:World@data">World@data</a> part gets merged to the map_draw dataframe by hand.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWFwX2RyYXckaWQgPC0gYXMubnVtZXJpYyhtYXBfZHJhdyRpZClcbmRhdGEgPC0gbWFwQGRhdGFcbiBcbiNBZGQgdGhlIHN0YXRzIHRvIHRoZSBtYXAgZGF0YVxubWFwX2RyYXcgPC0gbGVmdF9qb2luKG1hcF9kcmF3LCBXb3JsZEBkYXRhLCBieSA9IGMoJ2lkJz0naWRfbmFtZScpKSAlPiUgXG4gICAgICBsZWZ0X2pvaW4oZ2dfb2N0MTdfd29ybGQsIGJ5ID0gYyhcIm5hbWVcIiA9IFwiQ291bnRyeVwiKSkgJT4lIFxuICAgICAgbXV0YXRlKGJpdGNvaW4gPSBpZmVsc2UoaXMubmEoQml0Y29pbiksIDAsIEJpdGNvaW4pKVxuYGBgIn0= -->
+<pre class="r"><code>map_draw$id &lt;- as.numeric(map_draw$id)
+data &lt;- map@data
+ 
+#Add the stats to the map data
+map_draw &lt;- left_join(map_draw, World@data, by = c('id'='id_name')) %&gt;% 
+      left_join(gg_oct17_world, by = c(&quot;name&quot; = &quot;Country&quot;)) %&gt;% 
+      mutate(bitcoin = ifelse(is.na(Bitcoin), 0, Bitcoin))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tCm91dHB1dDoKICBodG1sX25vdGVib29rOgogICAgY29kZV9mb2xkaW5nOiBzaG93CiAgICB0b2M6IHllcwogICAgdG9jX2Zsb2F0OiB5ZXMKICBodG1sX2RvY3VtZW50OgogICAgZGZfcHJpbnQ6IHBhZ2VkCiAgICB0b2M6IHllcwotLS0KClRoaXMgaXMgYW4gW1IgTWFya2Rvd25dKGh0dHA6Ly9ybWFya2Rvd24ucnN0dWRpby5jb20pIE5vdGVib29rLiBXaGVuIHlvdSBleGVjdXRlIGNvZGUgd2l0aGluIHRoZSBub3RlYm9vaywgdGhlIHJlc3VsdHMgYXBwZWFyIGJlbmVhdGggdGhlIGNvZGUuIAoKVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkNtZCtTaGlmdCtFbnRlciouIAoKYGBge3J9CnBsb3QoY2FycykKYGBgCgpBZGQgYSBuZXcgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpJbnNlcnQgQ2h1bmsqIGJ1dHRvbiBvbiB0aGUgdG9vbGJhciBvciBieSBwcmVzc2luZyAqQ21kK09wdGlvbitJKi4KCldoZW4geW91IHNhdmUgdGhlIG5vdGVib29rLCBhbiBIVE1MIGZpbGUgY29udGFpbmluZyB0aGUgY29kZSBhbmQgb3V0cHV0IHdpbGwgYmUgc2F2ZWQgYWxvbmdzaWRlIGl0IChjbGljayB0aGUgKlByZXZpZXcqIGJ1dHRvbiBvciBwcmVzcyAqQ21kK1NoaWZ0K0sqIHRvIHByZXZpZXcgdGhlIEhUTUwgZmlsZSkuIAoKVGhlIHByZXZpZXcgc2hvd3MgeW91IGEgcmVuZGVyZWQgSFRNTCBjb3B5IG9mIHRoZSBjb250ZW50cyBvZiB0aGUgZWRpdG9yLiBDb25zZXF1ZW50bHksIHVubGlrZSAqS25pdCosICpQcmV2aWV3KiBkb2VzIG5vdCBydW4gYW55IFIgY29kZSBjaHVua3MuIEluc3RlYWQsIHRoZSBvdXRwdXQgb2YgdGhlIGNodW5rIHdoZW4gaXQgd2FzIGxhc3QgcnVuIGluIHRoZSBlZGl0b3IgaXMgZGlzcGxheWVkLgoK</div>
+<div id="rmd-source-code">LS0tCm91dHB1dDoKICBodG1sX25vdGVib29rOgogICAgY29kZV9mb2xkaW5nOiBzaG93CiAgICB0b2M6IHllcwogICAgdG9jX2Zsb2F0OiB5ZXMKICBodG1sX2RvY3VtZW50OgogICAgZGZfcHJpbnQ6IHBhZ2VkCiAgICB0b2M6IHllcwplZGl0b3Jfb3B0aW9uczogCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGlubGluZQotLS0KIyBXcmFuZ2xlIERhdGEgey50YWJzZXR9CioqKgoKIyMgQml0Y29pbiBQcmljZSBEYXRhCiMjIyBXaWRlIHRvIGxvbmcKYGBge3J9Cm1lcmdlIDwtIHJlYWRSRFMoImRhdGEvYml0Y29pbl9yYXcucmRzIikKbG9uZyAgPC0gIGdhdGhlcihtZXJnZSwgdmFyaWFibGUsIG1lYXN1cmVtZW50LCAKICAgICAgICAgICAgICAgICBQcmVpczpOYWNocmljaHRlbmFydGlrZWwsIGZhY3Rvcl9rZXk9VFJVRSkKYGBgCgojIyMgRHJvcCBvbmUgZGF5IG9ubHkgY29udGFpbmVkIGluIGdvb2dsZSBkYXRhCmBgYHtyfQpsb25nICU+JSAKICBmaWx0ZXIoZGF0ZSAhPSAiMjAxOC0wMi0wNiIpIC0+CmxvbmcKYGBgCgojIyMgUHJlcGFyZSBzcGVjaWFsIHZhcmlhYmxlIHZhbHVlcyAobWluLCBtYXgsIGVuZCwgcXVhcnRpbGVzKQpgYGB7cn0KbWlucyA8LSBncm91cF9ieShsb25nLCB2YXJpYWJsZSkgJT4lIHNsaWNlKHdoaWNoLm1pbihtZWFzdXJlbWVudCkpICMgbWF4IHZhbHVlIHRzCm1heHMgPC0gZ3JvdXBfYnkobG9uZywgdmFyaWFibGUpICU+JSBzbGljZSh3aGljaC5tYXgobWVhc3VyZW1lbnQpKSAjIG1pbiB2YWx1ZSB0cwplbmRzIDwtIGdyb3VwX2J5KGxvbmcsIHZhcmlhYmxlKSAlPiUgZmlsdGVyKGRhdGUgPT0gbWF4KGRhdGUpKSAgIyBsYXN0IHZhbHVlIG9mIHRzCnF1YXJ0cyA8LSBsb25nICU+JSBncm91cF9ieSh2YXJpYWJsZSkgJT4lICMgcXVhcnRpbGVzIGZvciBncmV5IGJhcgogIHN1bW1hcml6ZShxdWFydDEgPSBxdWFudGlsZShtZWFzdXJlbWVudCwgMC4yNSwgbmEucm0gPSBUUlVFKSwKICAgICAgICAgICAgcXVhcnQyID0gcXVhbnRpbGUobWVhc3VyZW1lbnQsIDAuNzUsIG5hLnJtID0gVFJVRSkpICU+JQogIHJpZ2h0X2pvaW4obG9uZywgYnkgPSAidmFyaWFibGUiKQpgYGAKCiMjIyBDcmVhdGUgaW5kZXggdmFsdWVzCmBgYHtyfQpsb25nICU+JSAKICBmaWx0ZXIoY29tcGxldGUuY2FzZXMoLiksIHZhcmlhYmxlICE9ICJjbG9zZV9yYXRpbyIpICU+JSAKICBncm91cF9ieSh2YXJpYWJsZSkgJT4lIAogIG11dGF0ZShtYXggPSBtYXgobWVhc3VyZW1lbnQpLCBpbmRleCA9IG1lYXN1cmVtZW50L21heCkgJT4lIAogIGZpbHRlcih2YXJpYWJsZSA9PSAiUHJlaXMiIHwgdmFyaWFibGUgPT0gIkdvb2dsZS1TdWNoZW4iKSAtPgpsb25nLmluZGV4CgpgYGAKCiMjIEJpdGNvaW4gUmVnaW9uCiMjIyBQcmVwYXJlIGZvciBnZ3Bsb3QgTWFwCmBgYHtyfQojZ2VuZXJhdGUgaWQKV29ybGRAZGF0YSRpZF9uYW1lIDwtIHNlcSgxLGxlbmd0aChXb3JsZEBkYXRhJG5hbWUpKSAKIyBjaGFuZ2Ugc3BhY2lhbCBkYXRhIGZyYW1lIHRvIGRhdGEgZnJhbWUKbWFwX2RyYXcgPC0gZm9ydGlmeShXb3JsZCwgcmVnaW9uID0gImlkX25hbWUiKQpgYGAKCiMjIyBBZGQgV29ybGRAZGF0YSAKVGhyb3VnaCB0aGUgZm9ydGlmeSBjb21tYW5kLCBzb21lIGluZm9ybWF0aW9uIGZyb20gdGhlIGRhdGFzZXQgb2YgdGhlIHNwYWNpYWwgZGF0YSBmcmFtZSBpc3QgbG9zdC4gSW4gdGhpcyBzdGVwIHRoZSBXb3JsZEBkYXRhIHBhcnQgZ2V0cyBtZXJnZWQgdG8gdGhlIG1hcF9kcmF3IGRhdGFmcmFtZSBieSBoYW5kLiAKYGBge3IgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRX0KbWFwX2RyYXckaWQgPC0gYXMubnVtZXJpYyhtYXBfZHJhdyRpZCkKZGF0YSA8LSBtYXBAZGF0YQogCiNBZGQgdGhlIHN0YXRzIHRvIHRoZSBtYXAgZGF0YQptYXBfZHJhdyA8LSBsZWZ0X2pvaW4obWFwX2RyYXcsIFdvcmxkQGRhdGEsIGJ5ID0gYygnaWQnPSdpZF9uYW1lJykpICU+JSAKICAgICAgbGVmdF9qb2luKGdnX29jdDE3X3dvcmxkLCBieSA9IGMoIm5hbWUiID0gIkNvdW50cnkiKSkgJT4lIAogICAgICBtdXRhdGUoYml0Y29pbiA9IGlmZWxzZShpcy5uYShCaXRjb2luKSwgMCwgQml0Y29pbikpCgpgYGAKCg==</div>
 
 
 </div>

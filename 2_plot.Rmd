@@ -10,19 +10,23 @@ output:
 editor_options: 
   chunk_output_type: inline
 ---
+# Plot Data{.tabset}
+***
 
-# Index Plot
-```{r}
-ggplot(long.index, aes(x = date, y = index, color = variable)) +
+## Index Plot
+```{r message=FALSE, warning=FALSE}
+(p_index <- ggplot(long.index, aes(x = date, y = index, color = variable)) +
   geom_line() + 
   geom_point() + 
   theme_tufte() +
-  ylab("Index") 
+  ylab("Index"))
+
+ggsave("data/p_index.png", p_index)
 ```
 
-# Sparklines
-```{r}
-ggplot(long, aes(x = date, y = measurement)) + 
+## Sparklines
+```{r echo=T, message=FALSE, warning=FALSE}
+(p_spark <- ggplot(long, aes(x = date, y = measurement)) + 
   facet_grid(variable ~ ., scales = "free_y") + 
   geom_ribbon(data = quarts, aes(ymin = quart1, max = quart2), fill = 'grey90') + # grey bar
   geom_line(size=0.3) +
@@ -35,6 +39,61 @@ ggplot(long, aes(x = date, y = measurement)) +
   expand_limits(x = max(long$date) + (0.25 * (max(long$date) - min(long$date)))) +
   theme_tufte(base_size = 15, base_family = "sans") +
   theme(axis.title=element_blank(), axis.text.y = element_blank(), 
-        axis.ticks = element_blank(), strip.text = element_blank())
+        axis.ticks = element_blank(), strip.text = element_blank()))
+ggsave("data/p_spark.png", p_index)
+
+```
+
+## TMap Fun {.active}
+```{r message=FALSE, warning=FALSE}
+tmap_mode("view")
+(tmap_fun <- tm_shape(shp = world.shp) +
+  tm_polygons("Bitcoin", alpha = 0.5, 
+              style = "pretty", interval.closure = "left") +
+  tm_layout(legend.text.size = 0.8, legend.title.size = 1.1, frame = FALSE, 
+            legend.outside = TRUE))
+
+save_tmap(tmap_fun, "data/bitcoin_tmap_fun.png")
+```
+
+## TMap Static
+```{r message=FALSE, warning=FALSE}
+tmap_mode("plot")
+(p_tmap <- tm_shape(shp = world.shp) +
+  tm_polygons("Bitcoin", alpha = 0.5, 
+              style = "pretty", interval.closure = "left") +
+  tm_layout(legend.text.size = 0.8, legend.title.size = 1.1, frame = FALSE, 
+            legend.outside = TRUE))
+
+save_tmap(p_tmap, "data/bitcoin_tmap.png")
+```
+## Map GGplot
+info: https://fcostartistician.wordpress.com/2017/09/13/how-to-deal-with-spatial-data-in-r-and-ggplot-shapefiles/
+```{r}
+ggplot() +
+      geom_polygon(data = map_draw,
+                   mapping = aes(x = long, y = lat, group = group, fill = Bitcoin),
+                 color = "black") +
+      #Add the scale of colour you want
+      theme(
+        axis.text = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        panel.border = element_blank(),
+        panel.grid = element_blank(),
+        axis.title = element_blank()
+        )+
+      coord_cartesian()+
+      ggtitle("Add Title here")
+```
+
+## Final Plot
+```{r}
+library(png)
+library(grid)
+img <- readPNG("data/bitcoin_tmap_fun.png")
+g <- rasterGrob(img, interpolate=TRUE)
+
+grid.arrange(g, p_spark) # sieht nicht aus
 ```
 

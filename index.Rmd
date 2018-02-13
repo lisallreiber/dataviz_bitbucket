@@ -2,17 +2,21 @@
 pagetitle: Data Visualization
 ---
 
-# Headline {.tabset .tabset-sticky}
+# The Bitcoin Hype {.tabset .tabset-sticky}
+**Price of and the Interest in Bitcoins in the last few months **
+(from October 2017 - February 2018) 
 
-Here comes the description of our project
 
-We used these [helper functions](0_helpers.html) and 
-this [knitr component](_regression_summary.html). 
-These are the [.Rprofile settings](.Rprofile.html)
+On this website we present our Data Visualization Project where we show different visualizations of bitcoins regarding the development of the price and magnitude of interest over time and regions of the world. 
 
 1. First we [created the data](0_create.nb.html).
 2. Then we [wrangled the data ](1_wrangle.nb.html).
 3. Then we [plotted](2_plot.nb.html) it.
+
+On this Page we show the "final version", a combination of A) sparklines that visualize the developments of the price of one bitcoin and the development of the amount of web searches and B) the visualization of the amount of web searches in the different regions of the world.
+Enjoy:
+
+
 
 ## Authors & Acknowledgements {.tabset .tabset-sticky}
 comes here

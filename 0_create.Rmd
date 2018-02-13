@@ -11,33 +11,65 @@ editor_options:
   chunk_output_type: inline
 ---
 
-# Prepare R
+# Getting Data
+
+
+***
+
+## 1. Load... {.tabset}
+### ...Packages
 ```{r}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   haven,
-  tidyverse,
-  lme4,
+  lme4, 
   sjPlot,
   sjmisc,
   sjlabelled,
-  ggthemes,
-  reshape
-)
+  ggthemes, 
+  reshape, # reshape dataframes
+  tmap, # to map spacial data, get shapefiles
+  tmaptools, # to map spacial data
+  ggmap, # to map spacial data
+  sp, # to handle spacial data
+  broom, # to clean up all kinds of datasets
+  ggplot2, # to plot 
+  gridExtra, # to arrange multiple plots
+  tidyverse) # data wrangling
 
-wd <- "D:/Dropbox/DataVisualization" # Flo
-# wd <- "/Users/LR/Dropbox/DataVisualization/" # Lisa
-setwd(wd)
+# wd <- "D:/Dropbox/DataVisualization" # Flo
+# setwd(wd)
 ```
 
-
-# Load data
-```{r}
-price  <- read_csv("crypto-markets.csv")
-google <- read_csv("Bitcoin_google_1_10_2017.csv")
-news   <- read_csv("Bitcoin_news_1_10_2017.csv")
+### ...Bitcoin Prices
+```{r bitcoin prices, echo=T, message=F, warning=FALSE}
+# Price of Bitcoins
+price  <- read_csv("data/crypto-markets.csv")
+# Relative Amount of Google Web Searches
+google <- read_csv("data/Bitcoin_google_1_10_2017.csv")
+# Relative Amount of News
+news   <- read_csv("data/Bitcoin_news_1_10_2017.csv")
 ```
 
+### ...Bitcoin Region
+[Info on Source of Data](https://support.google.com/trends/answer/4355212)
+```{r bitcoin region, echo=T, message=F, warning=FALSE}
+# Relative Amount of Google Web Searches by Region
+## excludes low volume countries
+gg_oct17_world <- read_csv("data/bitcoin_gg_region_011017.csv", skip = 3,
+                           col_names = c("Country", "Bitcoin"))
+
+## includes low volume countries
+gg_oct17_world2 <- read_csv("data/bitcoin_gg_region_all_011017.csv", skip = 3,
+                           col_names = c("Country", "Bitcoin"))
+
+## shapefile of world
+data(World)
+```
+
+## 2. Prepare Data {.tabset}
+### Bitcoin Prices
+#### Prepare Price Data
 ```{r}
 price %>%
   filter(symbol == "BTC") %>%
@@ -45,17 +77,31 @@ price %>%
 price
 ```
 
-
-# Merge 3 datasets
+#### Merge 3 datasets
 ```{r}
 price %>%
-  right_join( google, by = "date") %>% 
+  right_join(google, by = "date") %>% 
   right_join(news, by = "date") ->
 merge
 ```
 
-# Rename variables
+#### Rename variables
 ```{r}
 names(merge)[2:ncol(merge)] <- c("Preis", "Spread", "Gesamtwert", 
                                  "Google-Suchen", "Nachrichtenartikel")
 ```
+
+#### Save Dataset
+```{r}
+saveRDS(merge, "data/bitcoin_raw.rds")
+```
+
+
+### Bitcoin Region
+
+#### Merge Shapefile with Gogle Trends Regional Data
+```{r}
+world.shp <- sp::merge(World, gg_oct17_world, 
+                       by.x = "name", by.y = "Country", all.x = T)
+```
+
