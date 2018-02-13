@@ -40,7 +40,7 @@ ggsave("data/p_index.png", p_index)
   theme_tufte(base_size = 15, base_family = "sans") +
   theme(axis.title=element_blank(), axis.text.y = element_blank(), 
         axis.ticks = element_blank(), strip.text = element_blank()))
-ggsave("data/p_spark.png", p_index)
+ggsave("data/p_spark.png", p_spark)
 
 ```
 
@@ -51,7 +51,8 @@ tmap_mode("view")
   tm_polygons("Bitcoin", alpha = 0.5, 
               style = "pretty", interval.closure = "left") +
   tm_layout(legend.text.size = 0.8, legend.title.size = 1.1, frame = FALSE, 
-            legend.outside = TRUE))
+            legend.outside = TRUE, 
+            title = "Web Searches for Bitcoin, in relative terms over regions"))
 
 save_tmap(tmap_fun, "data/bitcoin_tmap_fun.png")
 ```
@@ -59,11 +60,14 @@ save_tmap(tmap_fun, "data/bitcoin_tmap_fun.png")
 ## TMap Static
 ```{r message=FALSE, warning=FALSE}
 tmap_mode("plot")
+
 (p_tmap <- tm_shape(shp = world.shp) +
   tm_polygons("Bitcoin", alpha = 0.5, 
               style = "pretty", interval.closure = "left") +
   tm_layout(legend.text.size = 0.8, legend.title.size = 1.1, frame = FALSE, 
-            legend.outside = TRUE))
+            legend.outside = TRUE,
+            title = "Web Searches for Bitcoin, in relative terms over regions")+
+  tm_style_cobalt())
 
 save_tmap(p_tmap, "data/bitcoin_tmap.png")
 ```
@@ -84,7 +88,7 @@ ggplot() +
         axis.title = element_blank()
         )+
       coord_cartesian()+
-      ggtitle("Add Title here")
+      ggtitle("Web Searches for Bitcoin, in relative terms over regions")
 ```
 
 ## Final Plot

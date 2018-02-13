@@ -54,6 +54,7 @@ long.index
 ### Prepare for ggplot Map
 ```{r}
 #generate id
+data(World)
 World@data$id_name <- seq(1,length(World@data$name)) 
 # change spacial data frame to data frame
 map_draw <- fortify(World, region = "id_name")
@@ -63,7 +64,7 @@ map_draw <- fortify(World, region = "id_name")
 Through the fortify command, some information from the dataset of the spacial data frame ist lost. In this step the World@data part gets merged to the map_draw dataframe by hand. 
 ```{r message=FALSE, warning=FALSE}
 map_draw$id <- as.numeric(map_draw$id)
-data <- map@data
+data <- World@data
  
 #Add the stats to the map data
 map_draw <- left_join(map_draw, World@data, by = c('id'='id_name')) %>% 

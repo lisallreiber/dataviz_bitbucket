@@ -370,9 +370,16 @@ div.tocify {
 <h3>…Packages</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbImlmICghcmVxdWlyZShcInBhY21hblwiKSkgaW5zdGFsbC5wYWNrYWdlcyhcInBhY21hblwiKSIsInBhY21hbjo6cF9sb2FkKFxuICBoYXZlbixcbiAgbG1lNCwgXG4gIHNqUGxvdCxcbiAgc2ptaXNjLFxuICBzamxhYmVsbGVkLFxuICBnZ3RoZW1lcywgXG4gIHJlc2hhcGUsICMgcmVzaGFwZSBkYXRhZnJhbWVzXG4gIHRtYXAsICMgdG8gbWFwIHNwYWNpYWwgZGF0YSwgZ2V0IHNoYXBlZmlsZXNcbiAgdG1hcHRvb2xzLCAjIHRvIG1hcCBzcGFjaWFsIGRhdGFcbiAgZ2dtYXAsICMgdG8gbWFwIHNwYWNpYWwgZGF0YVxuICBzcCwgIyB0byBoYW5kbGUgc3BhY2lhbCBkYXRhXG4gIGJyb29tLCAjIHRvIGNsZWFuIHVwIGFsbCBraW5kcyBvZiBkYXRhc2V0c1xuICBnZ3Bsb3QyLCAjIHRvIHBsb3QgXG4gIGdyaWRFeHRyYSwgIyB0byBhcnJhbmdlIG11bHRpcGxlIHBsb3RzXG4gIHRpZHl2ZXJzZSkgIyBkYXRhIHdyYW5nbGluZyIsIiIsIiMgd2QgPC0gXCJEOi9Ecm9wYm94L0RhdGFWaXN1YWxpemF0aW9uXCIgIyBGbG8iLCIjIHNldHdkKHdkKSJdfQ== -->
-<pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)
-pacman::p_load(
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYgKCFyZXF1aXJlKFwicGFjbWFuXCIpKSBpbnN0YWxsLnBhY2thZ2VzKFwicGFjbWFuXCIpXG5gYGAifQ== -->
+<pre class="r"><code>if (!require(&quot;pacman&quot;)) install.packages(&quot;pacman&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2Fybm1lbGR1bmc6XG5JbiBmb3JtYXQuUE9TSVhsdChhcy5QT1NJWGx0KHgpLCAuLi4pIDpcbiAgdW5rbm93biB0aW1lem9uZSAnem9uZS90ei8yMDE4Yy4xLjAvem9uZWluZm8vRXVyb3BlL0JlcmxpbidcbiJ9 -->
+<pre><code>Warnmeldung:
+In format.POSIXlt(as.POSIXlt(x), ...) :
+  unknown timezone 'zone/tz/2018c.1.0/zoneinfo/Europe/Berlin'</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFjbWFuOjpwX2xvYWQoXG4gIGhhdmVuLFxuICBsbWU0LCBcbiAgc2pQbG90LFxuICBzam1pc2MsXG4gIHNqbGFiZWxsZWQsXG4gIGdndGhlbWVzLCBcbiAgcmVzaGFwZSwgIyByZXNoYXBlIGRhdGFmcmFtZXNcbiAgdG1hcCwgIyB0byBtYXAgc3BhY2lhbCBkYXRhLCBnZXQgc2hhcGVmaWxlc1xuICB0bWFwdG9vbHMsICMgdG8gbWFwIHNwYWNpYWwgZGF0YVxuICBnZ21hcCwgIyB0byBtYXAgc3BhY2lhbCBkYXRhXG4gIHNwLCAjIHRvIGhhbmRsZSBzcGFjaWFsIGRhdGFcbiAgYnJvb20sICMgdG8gY2xlYW4gdXAgYWxsIGtpbmRzIG9mIGRhdGFzZXRzXG4gIGdncGxvdDIsICMgdG8gcGxvdCBcbiAgZ3JpZEV4dHJhLCAjIHRvIGFycmFuZ2UgbXVsdGlwbGUgcGxvdHNcbiAgdGlkeXZlcnNlKSAjIGRhdGEgd3JhbmdsaW5nXG4jIHdkIDwtIFwiRDovRHJvcGJveC9EYXRhVmlzdWFsaXphdGlvblwiICMgRmxvXG4jIHNldHdkKHdkKVxuYGBgIn0= -->
+<pre class="r"><code>pacman::p_load(
   haven,
   lme4, 
   sjPlot,
@@ -388,7 +395,6 @@ pacman::p_load(
   ggplot2, # to plot 
   gridExtra, # to arrange multiple plots
   tidyverse) # data wrangling
-
 # wd &lt;- &quot;D:/Dropbox/DataVisualization&quot; # Flo
 # setwd(wd)</code></pre>
 <!-- rnb-source-end -->
@@ -399,13 +405,19 @@ pacman::p_load(
 <h3>…Bitcoin Prices</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbIiMgUHJpY2Ugb2YgQml0Y29pbnMiLCJwcmljZSAgPC0gcmVhZF9jc3YoXCJkYXRhL2NyeXB0by1tYXJrZXRzLmNzdlwiKSIsIiMgUmVsYXRpdmUgQW1vdW50IG9mIEdvb2dsZSBXZWIgU2VhcmNoZXMiLCJnb29nbGUgPC0gcmVhZF9jc3YoXCJkYXRhL0JpdGNvaW5fZ29vZ2xlXzFfMTBfMjAxNy5jc3ZcIikiLCIjIFJlbGF0aXZlIEFtb3VudCBvZiBOZXdzIiwibmV3cyAgIDwtIHJlYWRfY3N2KFwiZGF0YS9CaXRjb2luX25ld3NfMV8xMF8yMDE3LmNzdlwiKSJdfQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBQcmljZSBvZiBCaXRjb2luc1xuICAgICAgIyBwcmljZSAgPC0gcmVhZF9jc3YoXCJkYXRhL2NyeXB0by1tYXJrZXRzLmNzdlwiKVxuICAgICAgIyBzYXZlUkRTKHByaWNlLCBcImRhdGEvcHJpY2UucmRzXCIpXG5wcmljZSA8LSByZWFkUkRTKFwiZGF0YS9wcmljZS5yZHNcIilcbiAgICAgICMgUmVsYXRpdmUgQW1vdW50IG9mIEdvb2dsZSBXZWIgU2VhcmNoZXNcbiAgICAgICMgZ29vZ2xlIDwtIHJlYWRfY3N2KFwiZGF0YS9CaXRjb2luX2dvb2dsZV8xXzEwXzIwMTcuY3N2XCIpXG4jIHNhdmVSRFMoZ29vZ2xlLCBcImRhdGEvZ29vZ2xlLnJkc1wiKVxuZ29vZ2xlIDwtIHJlYWRSRFMoXCJkYXRhL2dvb2dsZS5yZHNcIilcbiMgUmVsYXRpdmUgQW1vdW50IG9mIE5ld3NcbiAgICAgICMgbmV3cyAgIDwtIHJlYWRfY3N2KFwiZGF0YS9CaXRjb2luX25ld3NfMV8xMF8yMDE3LmNzdlwiKVxuICAgICAgIyBzYXZlUkRTKG5ld3MsIFwiZGF0YS9uZXdzLnJkc1wiKVxubmV3cyA8LSByZWFkUkRTKFwiZGF0YS9uZXdzLnJkc1wiKVxuYGBgIn0= -->
 <pre class="r"><code># Price of Bitcoins
-price  &lt;- read_csv(&quot;data/crypto-markets.csv&quot;)
-# Relative Amount of Google Web Searches
-google &lt;- read_csv(&quot;data/Bitcoin_google_1_10_2017.csv&quot;)
+      # price  &lt;- read_csv(&quot;data/crypto-markets.csv&quot;)
+      # saveRDS(price, &quot;data/price.rds&quot;)
+price &lt;- readRDS(&quot;data/price.rds&quot;)
+      # Relative Amount of Google Web Searches
+      # google &lt;- read_csv(&quot;data/Bitcoin_google_1_10_2017.csv&quot;)
+# saveRDS(google, &quot;data/google.rds&quot;)
+google &lt;- readRDS(&quot;data/google.rds&quot;)
 # Relative Amount of News
-news   &lt;- read_csv(&quot;data/Bitcoin_news_1_10_2017.csv&quot;)</code></pre>
+      # news   &lt;- read_csv(&quot;data/Bitcoin_news_1_10_2017.csv&quot;)
+      # saveRDS(news, &quot;data/news.rds&quot;)
+news &lt;- readRDS(&quot;data/news.rds&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -415,17 +427,33 @@ news   &lt;- read_csv(&quot;data/Bitcoin_news_1_10_2017.csv&quot;)</code></pre>
 <p><a href="https://support.google.com/trends/answer/4355212">Info on Source of Data</a></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjpbIiMgUmVsYXRpdmUgQW1vdW50IG9mIEdvb2dsZSBXZWIgU2VhcmNoZXMgYnkgUmVnaW9uIiwiIyMgZXhjbHVkZXMgbG93IHZvbHVtZSBjb3VudHJpZXMiLCJnZ19vY3QxN193b3JsZCA8LSByZWFkX2NzdihcImRhdGEvYml0Y29pbl9nZ19yZWdpb25fMDExMDE3LmNzdlwiLCBza2lwID0gMyxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbF9uYW1lcyA9IGMoXCJDb3VudHJ5XCIsIFwiQml0Y29pblwiKSkiLCIiLCIjIyBpbmNsdWRlcyBsb3cgdm9sdW1lIGNvdW50cmllcyIsImdnX29jdDE3X3dvcmxkMiA8LSByZWFkX2NzdihcImRhdGEvYml0Y29pbl9nZ19yZWdpb25fYWxsXzAxMTAxNy5jc3ZcIiwgc2tpcCA9IDMsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xfbmFtZXMgPSBjKFwiQ291bnRyeVwiLCBcIkJpdGNvaW5cIikpIiwiIiwiIyMgc2hhcGVmaWxlIG9mIHdvcmxkIiwiZGF0YShXb3JsZCkiXX0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBSZWxhdGl2ZSBBbW91bnQgb2YgR29vZ2xlIFdlYiBTZWFyY2hlcyBieSBSZWdpb25cbiMjIGV4Y2x1ZGVzIGxvdyB2b2x1bWUgY291bnRyaWVzXG5nZ19vY3QxN193b3JsZCA8LSByZWFkX2NzdihcImRhdGEvYml0Y29pbl9nZ19yZWdpb25fMDExMDE3LmNzdlwiLCBza2lwID0gMyxcbiAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbF9uYW1lcyA9IGMoXCJDb3VudHJ5XCIsIFwiQml0Y29pblwiKSlcbmBgYCJ9 -->
 <pre class="r"><code># Relative Amount of Google Web Searches by Region
 ## excludes low volume countries
 gg_oct17_world &lt;- read_csv(&quot;data/bitcoin_gg_region_011017.csv&quot;, skip = 3,
-                           col_names = c(&quot;Country&quot;, &quot;Bitcoin&quot;))
-
-## includes low volume countries
+                           col_names = c(&quot;Country&quot;, &quot;Bitcoin&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBDb3VudHJ5ID0gY29sX2NoYXJhY3RlcigpLFxuICBCaXRjb2luID0gY29sX2ludGVnZXIoKVxuKVxuIn0= -->
+<pre><code>Parsed with column specification:
+cols(
+  Country = col_character(),
+  Bitcoin = col_integer()
+)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgaW5jbHVkZXMgbG93IHZvbHVtZSBjb3VudHJpZXNcbmdnX29jdDE3X3dvcmxkMiA8LSByZWFkX2NzdihcImRhdGEvYml0Y29pbl9nZ19yZWdpb25fYWxsXzAxMTAxNy5jc3ZcIiwgc2tpcCA9IDMsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xfbmFtZXMgPSBjKFwiQ291bnRyeVwiLCBcIkJpdGNvaW5cIikpXG5gYGAifQ== -->
+<pre class="r"><code>## includes low volume countries
 gg_oct17_world2 &lt;- read_csv(&quot;data/bitcoin_gg_region_all_011017.csv&quot;, skip = 3,
-                           col_names = c(&quot;Country&quot;, &quot;Bitcoin&quot;))
-
-## shapefile of world
+                           col_names = c(&quot;Country&quot;, &quot;Bitcoin&quot;))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBDb3VudHJ5ID0gY29sX2NoYXJhY3RlcigpLFxuICBCaXRjb2luID0gY29sX2NoYXJhY3RlcigpXG4pXG4ifQ== -->
+<pre><code>Parsed with column specification:
+cols(
+  Country = col_character(),
+  Bitcoin = col_character()
+)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgc2hhcGVmaWxlIG9mIHdvcmxkXG5kYXRhKFdvcmxkKVxuYGBgIn0= -->
+<pre class="r"><code>## shapefile of world
 data(World)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
@@ -440,7 +468,7 @@ data(World)</code></pre>
 <h4>Prepare Price Data</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoicHJpY2UgJT4lXG4gIGZpbHRlcihzeW1ib2wgPT0gXCJCVENcIikgJT4lXG4gIHNlbGVjdChkYXRlLCBvcGVuLCBzcHJlYWQsIG1hcmtldCkgLT5cbnByaWNlIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpY2UgJT4lXG4gIGZpbHRlcihzeW1ib2wgPT0gXCJCVENcIikgJT4lXG4gIHNlbGVjdChkYXRlLCBvcGVuLCBzcHJlYWQsIG1hcmtldCkgLT5cbnByaWNlXG5gYGAifQ== -->
 <pre class="r"><code>price %&gt;%
   filter(symbol == &quot;BTC&quot;) %&gt;%
   select(date, open, spread, market) -&gt;
@@ -453,7 +481,7 @@ price</code></pre>
 <h4>Merge 3 datasets</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoicHJpY2UgJT4lXG4gIHJpZ2h0X2pvaW4oZ29vZ2xlLCBieSA9IFwiZGF0ZVwiKSAlPiUgXG4gIHJpZ2h0X2pvaW4obmV3cywgYnkgPSBcImRhdGVcIikgLT5cbm1lcmdlIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJpY2UgJT4lXG4gIHJpZ2h0X2pvaW4oZ29vZ2xlLCBieSA9IFwiZGF0ZVwiKSAlPiUgXG4gIHJpZ2h0X2pvaW4obmV3cywgYnkgPSBcImRhdGVcIikgLT5cbm1lcmdlXG5gYGAifQ== -->
 <pre class="r"><code>price %&gt;%
   right_join(google, by = &quot;date&quot;) %&gt;% 
   right_join(news, by = &quot;date&quot;) -&gt;
@@ -466,7 +494,7 @@ merge</code></pre>
 <h4>Rename variables</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoibmFtZXMobWVyZ2UpWzI6bmNvbChtZXJnZSldIDwtIGMoXCJQcmVpc1wiLCBcIlNwcmVhZFwiLCBcIkdlc2FtdHdlcnRcIiwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIkdvb2dsZS1TdWNoZW5cIiwgXCJOYWNocmljaHRlbmFydGlrZWxcIikifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMobWVyZ2UpWzI6bmNvbChtZXJnZSldIDwtIGMoXCJQcmVpc1wiLCBcIlNwcmVhZFwiLCBcIkdlc2FtdHdlcnRcIiwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIkdvb2dsZS1TdWNoZW5cIiwgXCJOYWNocmljaHRlbmFydGlrZWxcIilcbmBgYCJ9 -->
 <pre class="r"><code>names(merge)[2:ncol(merge)] &lt;- c(&quot;Preis&quot;, &quot;Spread&quot;, &quot;Gesamtwert&quot;, 
                                  &quot;Google-Suchen&quot;, &quot;Nachrichtenartikel&quot;)</code></pre>
 <!-- rnb-source-end -->
@@ -477,7 +505,7 @@ merge</code></pre>
 <h4>Save Dataset</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoic2F2ZVJEUyhtZXJnZSwgXCJkYXRhL2JpdGNvaW5fcmF3LnJkc1wiKSJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2F2ZVJEUyhtZXJnZSwgXCJkYXRhL2JpdGNvaW5fcmF3LnJkc1wiKVxuYGBgIn0= -->
 <pre class="r"><code>saveRDS(merge, &quot;data/bitcoin_raw.rds&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
@@ -490,7 +518,7 @@ merge</code></pre>
 <h4>Merge Shapefile with Gogle Trends Regional Data</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoid29ybGQuc2hwIDwtIHNwOjptZXJnZShXb3JsZCwgZ2dfb2N0MTdfd29ybGQsIFxuICAgICAgICAgICAgICAgICAgICAgICBieS54ID0gXCJuYW1lXCIsIGJ5LnkgPSBcIkNvdW50cnlcIiwgYWxsLnggPSBUKSJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud29ybGQuc2hwIDwtIHNwOjptZXJnZShXb3JsZCwgZ2dfb2N0MTdfd29ybGQsIFxuICAgICAgICAgICAgICAgICAgICAgICBieS54ID0gXCJuYW1lXCIsIGJ5LnkgPSBcIkNvdW50cnlcIiwgYWxsLnggPSBUKVxuYGBgIn0= -->
 <pre class="r"><code>world.shp &lt;- sp::merge(World, gg_oct17_world, 
                        by.x = &quot;name&quot;, by.y = &quot;Country&quot;, all.x = T)</code></pre>
 <!-- rnb-source-end -->
@@ -502,7 +530,7 @@ merge</code></pre>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCm91dHB1dDoKICBodG1sX25vdGVib29rOgogICAgY29kZV9mb2xkaW5nOiBzaG93CiAgICB0b2M6IHllcwogICAgdG9jX2Zsb2F0OiB5ZXMKICBodG1sX2RvY3VtZW50OgogICAgZGZfcHJpbnQ6IHBhZ2VkCiAgICB0b2M6IHllcwplZGl0b3Jfb3B0aW9uczogCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGlubGluZQotLS0KCiMgR2V0dGluZyBEYXRhCgoKKioqCgojIyAxLiBMb2FkLi4uIHsudGFic2V0fQojIyMgLi4uUGFja2FnZXMKYGBge3J9CmlmICghcmVxdWlyZSgicGFjbWFuIikpIGluc3RhbGwucGFja2FnZXMoInBhY21hbiIpCnBhY21hbjo6cF9sb2FkKAogIGhhdmVuLAogIGxtZTQsIAogIHNqUGxvdCwKICBzam1pc2MsCiAgc2psYWJlbGxlZCwKICBnZ3RoZW1lcywgCiAgcmVzaGFwZSwgIyByZXNoYXBlIGRhdGFmcmFtZXMKICB0bWFwLCAjIHRvIG1hcCBzcGFjaWFsIGRhdGEsIGdldCBzaGFwZWZpbGVzCiAgdG1hcHRvb2xzLCAjIHRvIG1hcCBzcGFjaWFsIGRhdGEKICBnZ21hcCwgIyB0byBtYXAgc3BhY2lhbCBkYXRhCiAgc3AsICMgdG8gaGFuZGxlIHNwYWNpYWwgZGF0YQogIGJyb29tLCAjIHRvIGNsZWFuIHVwIGFsbCBraW5kcyBvZiBkYXRhc2V0cwogIGdncGxvdDIsICMgdG8gcGxvdCAKICBncmlkRXh0cmEsICMgdG8gYXJyYW5nZSBtdWx0aXBsZSBwbG90cwogIHRpZHl2ZXJzZSkgIyBkYXRhIHdyYW5nbGluZwoKIyB3ZCA8LSAiRDovRHJvcGJveC9EYXRhVmlzdWFsaXphdGlvbiIgIyBGbG8KIyBzZXR3ZCh3ZCkKYGBgCgojIyMgLi4uQml0Y29pbiBQcmljZXMKYGBge3IgYml0Y29pbiBwcmljZXMsIGVjaG89VCwgbWVzc2FnZT1GLCB3YXJuaW5nPUZBTFNFfQojIFByaWNlIG9mIEJpdGNvaW5zCnByaWNlICA8LSByZWFkX2NzdigiZGF0YS9jcnlwdG8tbWFya2V0cy5jc3YiKQojIFJlbGF0aXZlIEFtb3VudCBvZiBHb29nbGUgV2ViIFNlYXJjaGVzCmdvb2dsZSA8LSByZWFkX2NzdigiZGF0YS9CaXRjb2luX2dvb2dsZV8xXzEwXzIwMTcuY3N2IikKIyBSZWxhdGl2ZSBBbW91bnQgb2YgTmV3cwpuZXdzICAgPC0gcmVhZF9jc3YoImRhdGEvQml0Y29pbl9uZXdzXzFfMTBfMjAxNy5jc3YiKQpgYGAKCiMjIyAuLi5CaXRjb2luIFJlZ2lvbgpbSW5mbyBvbiBTb3VyY2Ugb2YgRGF0YV0oaHR0cHM6Ly9zdXBwb3J0Lmdvb2dsZS5jb20vdHJlbmRzL2Fuc3dlci80MzU1MjEyKQpgYGB7ciBiaXRjb2luIHJlZ2lvbiwgZWNobz1ULCBtZXNzYWdlPUYsIHdhcm5pbmc9RkFMU0V9CiMgUmVsYXRpdmUgQW1vdW50IG9mIEdvb2dsZSBXZWIgU2VhcmNoZXMgYnkgUmVnaW9uCiMjIGV4Y2x1ZGVzIGxvdyB2b2x1bWUgY291bnRyaWVzCmdnX29jdDE3X3dvcmxkIDwtIHJlYWRfY3N2KCJkYXRhL2JpdGNvaW5fZ2dfcmVnaW9uXzAxMTAxNy5jc3YiLCBza2lwID0gMywKICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sX25hbWVzID0gYygiQ291bnRyeSIsICJCaXRjb2luIikpCgojIyBpbmNsdWRlcyBsb3cgdm9sdW1lIGNvdW50cmllcwpnZ19vY3QxN193b3JsZDIgPC0gcmVhZF9jc3YoImRhdGEvYml0Y29pbl9nZ19yZWdpb25fYWxsXzAxMTAxNy5jc3YiLCBza2lwID0gMywKICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sX25hbWVzID0gYygiQ291bnRyeSIsICJCaXRjb2luIikpCgojIyBzaGFwZWZpbGUgb2Ygd29ybGQKZGF0YShXb3JsZCkKYGBgCgojIyAyLiBQcmVwYXJlIERhdGEgey50YWJzZXR9CiMjIyBCaXRjb2luIFByaWNlcwojIyMjIFByZXBhcmUgUHJpY2UgRGF0YQpgYGB7cn0KcHJpY2UgJT4lCiAgZmlsdGVyKHN5bWJvbCA9PSAiQlRDIikgJT4lCiAgc2VsZWN0KGRhdGUsIG9wZW4sIHNwcmVhZCwgbWFya2V0KSAtPgpwcmljZQpgYGAKCiMjIyMgTWVyZ2UgMyBkYXRhc2V0cwpgYGB7cn0KcHJpY2UgJT4lCiAgcmlnaHRfam9pbihnb29nbGUsIGJ5ID0gImRhdGUiKSAlPiUgCiAgcmlnaHRfam9pbihuZXdzLCBieSA9ICJkYXRlIikgLT4KbWVyZ2UKYGBgCgojIyMjIFJlbmFtZSB2YXJpYWJsZXMKYGBge3J9Cm5hbWVzKG1lcmdlKVsyOm5jb2wobWVyZ2UpXSA8LSBjKCJQcmVpcyIsICJTcHJlYWQiLCAiR2VzYW10d2VydCIsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiR29vZ2xlLVN1Y2hlbiIsICJOYWNocmljaHRlbmFydGlrZWwiKQpgYGAKCiMjIyMgU2F2ZSBEYXRhc2V0CmBgYHtyfQpzYXZlUkRTKG1lcmdlLCAiZGF0YS9iaXRjb2luX3Jhdy5yZHMiKQpgYGAKCgojIyMgQml0Y29pbiBSZWdpb24KCiMjIyMgTWVyZ2UgU2hhcGVmaWxlIHdpdGggR29nbGUgVHJlbmRzIFJlZ2lvbmFsIERhdGEKYGBge3J9CndvcmxkLnNocCA8LSBzcDo6bWVyZ2UoV29ybGQsIGdnX29jdDE3X3dvcmxkLCAKICAgICAgICAgICAgICAgICAgICAgICBieS54ID0gIm5hbWUiLCBieS55ID0gIkNvdW50cnkiLCBhbGwueCA9IFQpCmBgYAoK</div>
+<div id="rmd-source-code">LS0tCm91dHB1dDoKICBodG1sX25vdGVib29rOgogICAgY29kZV9mb2xkaW5nOiBzaG93CiAgICB0b2M6IHllcwogICAgdG9jX2Zsb2F0OiB5ZXMKICBodG1sX2RvY3VtZW50OgogICAgZGZfcHJpbnQ6IHBhZ2VkCiAgICB0b2M6IHllcwplZGl0b3Jfb3B0aW9uczogCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGlubGluZQotLS0KCiMgR2V0dGluZyBEYXRhCgoKKioqCgojIyAxLiBMb2FkLi4uIHsudGFic2V0fQojIyMgLi4uUGFja2FnZXMKYGBge3IgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRX0KaWYgKCFyZXF1aXJlKCJwYWNtYW4iKSkgaW5zdGFsbC5wYWNrYWdlcygicGFjbWFuIikKcGFjbWFuOjpwX2xvYWQoCiAgaGF2ZW4sCiAgbG1lNCwgCiAgc2pQbG90LAogIHNqbWlzYywKICBzamxhYmVsbGVkLAogIGdndGhlbWVzLCAKICByZXNoYXBlLCAjIHJlc2hhcGUgZGF0YWZyYW1lcwogIHRtYXAsICMgdG8gbWFwIHNwYWNpYWwgZGF0YSwgZ2V0IHNoYXBlZmlsZXMKICB0bWFwdG9vbHMsICMgdG8gbWFwIHNwYWNpYWwgZGF0YQogIGdnbWFwLCAjIHRvIG1hcCBzcGFjaWFsIGRhdGEKICBzcCwgIyB0byBoYW5kbGUgc3BhY2lhbCBkYXRhCiAgYnJvb20sICMgdG8gY2xlYW4gdXAgYWxsIGtpbmRzIG9mIGRhdGFzZXRzCiAgZ2dwbG90MiwgIyB0byBwbG90IAogIGdyaWRFeHRyYSwgIyB0byBhcnJhbmdlIG11bHRpcGxlIHBsb3RzCiAgdGlkeXZlcnNlKSAjIGRhdGEgd3JhbmdsaW5nCgojIHdkIDwtICJEOi9Ecm9wYm94L0RhdGFWaXN1YWxpemF0aW9uIiAjIEZsbwojIHNldHdkKHdkKQpgYGAKCiMjIyAuLi5CaXRjb2luIFByaWNlcwpgYGB7ciBiaXRjb2luIHByaWNlcywgZWNobz1ULCBtZXNzYWdlPUYsIHdhcm5pbmc9RkFMU0V9CiMgUHJpY2Ugb2YgQml0Y29pbnMKICAgICAgIyBwcmljZSAgPC0gcmVhZF9jc3YoImRhdGEvY3J5cHRvLW1hcmtldHMuY3N2IikKICAgICAgIyBzYXZlUkRTKHByaWNlLCAiZGF0YS9wcmljZS5yZHMiKQpwcmljZSA8LSByZWFkUkRTKCJkYXRhL3ByaWNlLnJkcyIpCiAgICAgICMgUmVsYXRpdmUgQW1vdW50IG9mIEdvb2dsZSBXZWIgU2VhcmNoZXMKICAgICAgIyBnb29nbGUgPC0gcmVhZF9jc3YoImRhdGEvQml0Y29pbl9nb29nbGVfMV8xMF8yMDE3LmNzdiIpCiMgc2F2ZVJEUyhnb29nbGUsICJkYXRhL2dvb2dsZS5yZHMiKQpnb29nbGUgPC0gcmVhZFJEUygiZGF0YS9nb29nbGUucmRzIikKCiMgUmVsYXRpdmUgQW1vdW50IG9mIE5ld3MKICAgICAgIyBuZXdzICAgPC0gcmVhZF9jc3YoImRhdGEvQml0Y29pbl9uZXdzXzFfMTBfMjAxNy5jc3YiKQogICAgICAjIHNhdmVSRFMobmV3cywgImRhdGEvbmV3cy5yZHMiKQpuZXdzIDwtIHJlYWRSRFMoImRhdGEvbmV3cy5yZHMiKQpgYGAKCiMjIyAuLi5CaXRjb2luIFJlZ2lvbgpbSW5mbyBvbiBTb3VyY2Ugb2YgRGF0YV0oaHR0cHM6Ly9zdXBwb3J0Lmdvb2dsZS5jb20vdHJlbmRzL2Fuc3dlci80MzU1MjEyKQpgYGB7ciBiaXRjb2luIHJlZ2lvbiwgZWNobz1ULCBtZXNzYWdlPUYsIHdhcm5pbmc9RkFMU0V9CiMgUmVsYXRpdmUgQW1vdW50IG9mIEdvb2dsZSBXZWIgU2VhcmNoZXMgYnkgUmVnaW9uCiMjIGV4Y2x1ZGVzIGxvdyB2b2x1bWUgY291bnRyaWVzCmdnX29jdDE3X3dvcmxkIDwtIHJlYWRfY3N2KCJkYXRhL2JpdGNvaW5fZ2dfcmVnaW9uXzAxMTAxNy5jc3YiLCBza2lwID0gMywKICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sX25hbWVzID0gYygiQ291bnRyeSIsICJCaXRjb2luIikpCgojIyBpbmNsdWRlcyBsb3cgdm9sdW1lIGNvdW50cmllcwpnZ19vY3QxN193b3JsZDIgPC0gcmVhZF9jc3YoImRhdGEvYml0Y29pbl9nZ19yZWdpb25fYWxsXzAxMTAxNy5jc3YiLCBza2lwID0gMywKICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sX25hbWVzID0gYygiQ291bnRyeSIsICJCaXRjb2luIikpCgojIyBzaGFwZWZpbGUgb2Ygd29ybGQKZGF0YShXb3JsZCkKYGBgCgojIyAyLiBQcmVwYXJlIERhdGEgey50YWJzZXR9CiMjIyBCaXRjb2luIFByaWNlcwojIyMjIFByZXBhcmUgUHJpY2UgRGF0YQpgYGB7cn0KcHJpY2UgJT4lCiAgZmlsdGVyKHN5bWJvbCA9PSAiQlRDIikgJT4lCiAgc2VsZWN0KGRhdGUsIG9wZW4sIHNwcmVhZCwgbWFya2V0KSAtPgpwcmljZQpgYGAKCiMjIyMgTWVyZ2UgMyBkYXRhc2V0cwpgYGB7cn0KcHJpY2UgJT4lCiAgcmlnaHRfam9pbihnb29nbGUsIGJ5ID0gImRhdGUiKSAlPiUgCiAgcmlnaHRfam9pbihuZXdzLCBieSA9ICJkYXRlIikgLT4KbWVyZ2UKYGBgCgojIyMjIFJlbmFtZSB2YXJpYWJsZXMKYGBge3J9Cm5hbWVzKG1lcmdlKVsyOm5jb2wobWVyZ2UpXSA8LSBjKCJQcmVpcyIsICJTcHJlYWQiLCAiR2VzYW10d2VydCIsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiR29vZ2xlLVN1Y2hlbiIsICJOYWNocmljaHRlbmFydGlrZWwiKQpgYGAKCiMjIyMgU2F2ZSBEYXRhc2V0CmBgYHtyfQpzYXZlUkRTKG1lcmdlLCAiZGF0YS9iaXRjb2luX3Jhdy5yZHMiKQpgYGAKCgojIyMgQml0Y29pbiBSZWdpb24KCiMjIyMgTWVyZ2UgU2hhcGVmaWxlIHdpdGggR29nbGUgVHJlbmRzIFJlZ2lvbmFsIERhdGEKYGBge3J9CndvcmxkLnNocCA8LSBzcDo6bWVyZ2UoV29ybGQsIGdnX29jdDE3X3dvcmxkLCAKICAgICAgICAgICAgICAgICAgICAgICBieS54ID0gIm5hbWUiLCBieS55ID0gIkNvdW50cnkiLCBhbGwueCA9IFQpCmBgYAoK</div>
 
 
 </div>

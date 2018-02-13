@@ -18,7 +18,7 @@ editor_options:
 
 ## 1. Load... {.tabset}
 ### ...Packages
-```{r}
+```{r message=FALSE, warning=FALSE}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   haven,
@@ -44,11 +44,18 @@ pacman::p_load(
 ### ...Bitcoin Prices
 ```{r bitcoin prices, echo=T, message=F, warning=FALSE}
 # Price of Bitcoins
-price  <- read_csv("data/crypto-markets.csv")
-# Relative Amount of Google Web Searches
-google <- read_csv("data/Bitcoin_google_1_10_2017.csv")
+      # price  <- read_csv("data/crypto-markets.csv")
+      # saveRDS(price, "data/price.rds")
+price <- readRDS("data/price.rds")
+      # Relative Amount of Google Web Searches
+      # google <- read_csv("data/Bitcoin_google_1_10_2017.csv")
+# saveRDS(google, "data/google.rds")
+google <- readRDS("data/google.rds")
+
 # Relative Amount of News
-news   <- read_csv("data/Bitcoin_news_1_10_2017.csv")
+      # news   <- read_csv("data/Bitcoin_news_1_10_2017.csv")
+      # saveRDS(news, "data/news.rds")
+news <- readRDS("data/news.rds")
 ```
 
 ### ...Bitcoin Region
